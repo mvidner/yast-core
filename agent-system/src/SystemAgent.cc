@@ -1055,6 +1055,7 @@ SystemAgent::Execute (const YCPPath& path, const YCPValue& value,
           res = shellcommand(root(), command);
 
         unlink(template_);
+        free(template_);
 
         if (res == -1)
             y2error ("writting to temporary file failed %s", strerror(errno));
