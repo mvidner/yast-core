@@ -823,14 +823,14 @@ AnyAgent::readValueByPath (const YCPValue & value, const YCPPath & path)
     YCPValue sub_value = value;
     for (int i = 0; i < path->length (); i++)
     {
-	const char *s = path->component_str (i).c_str ();
+        const string ps = path->component_str (i);
 
 	// .<num> -> return entry <num> of cached list data
 	//
 
-	if (isdigit ((unsigned char) s[0]))
+	if (isdigit (ps[0]))
 	{
-	    int num = atoi (s);
+	    int num = atoi (ps.c_str());
 
 	    if (sub_value->isList ())
 	    {
@@ -843,10 +843,10 @@ AnyAgent::readValueByPath (const YCPValue & value, const YCPPath & path)
 	    }
 	    else if (sub_value->isMap ())
 	    {
-		YCPValue v = sub_value->asMap ()->value (YCPString (s));
+		YCPValue v = sub_value->asMap ()->value (YCPString (ps));
 		if (v.isNull ())
 		{
-		    y2error ("Bad index %s for ._.<num>", s);
+		    y2error ("Bad index %s for ._.<num>", ps.c_str());
 		    return YCPVoid ();
 		}
 		else
@@ -859,13 +859,13 @@ AnyAgent::readValueByPath (const YCPValue & value, const YCPPath & path)
 
 	else if (sub_value->isMap ())
 	{
-	    sub_value = sub_value->asMap ()->value (YCPString (s));
+	    sub_value = sub_value->asMap ()->value (YCPString (ps));
 	}
 
 	else
 	{
 	    y2error ("Read path element '%s' does not match value %s",
-		     s, sub_value->toString ().c_str ());
+		     ps.c_str(), sub_value->toString ().c_str ());
 	    sub_value = YCPVoid ();
 	    break;
 	}
@@ -897,16 +897,16 @@ AnyAgent::writeValueByPath (const YCPValue & current, const YCPPath & path,
     YCPValue run = current;
     for (int i = 0; i < path->length (); i++)
     {
-	const char *s = path->component_str (i).c_str ();
+	const string ps = path->component_str (i);
 
-	y2debug ("writeValueByPath (%s)", s);
+	y2debug ("writeValueByPath (%s)", ps.c_str());
 
 	// .<num> -> return entry <num> of cached list data
 	//
 
-	if (isdigit (s[0]))
+	if (isdigit (ps[0]))
 	{
-	    int num = atoi (s);
+	    int num = atoi (ps.c_str());
 
 	    if (run->isList ())
 	    {
@@ -919,10 +919,10 @@ AnyAgent::writeValueByPath (const YCPValue & current, const YCPPath & path,
 	    }
 	    else if (run->isMap ())
 	    {
-		YCPValue v = run->asMap ()->value (YCPString (s));
+		YCPValue v = run->asMap ()->value (YCPString (ps));
 		if (v.isNull ())
 		{
-		    y2error ("Bad index %s for ._.<num>", s);
+		    y2error ("Bad index %s for ._.<num>", ps.c_str());
 		    return YCPVoid ();
 		}
 		else
@@ -935,13 +935,13 @@ AnyAgent::writeValueByPath (const YCPValue & current, const YCPPath & path,
 
 	else if (run->isMap ())
 	{
-	    run = run->asMap ()->value (YCPString (s));
+	    run = run->asMap ()->value (YCPString (ps));
 	}
 
 	else
 	{
 	    y2error ("Write path element '%s' does not match value %s",
-		     s, run->toString ().c_str ());
+		     ps.c_str(), run->toString ().c_str ());
 	    run = YCPVoid ();
 	    break;
 	}
