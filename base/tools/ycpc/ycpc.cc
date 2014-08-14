@@ -442,6 +442,7 @@ parseFile (const char *path, const char *expected)
 		fprintf (stderr, "Bad file '%s':\nmodule statement at wrong postion\nLine %d:[%s]", path, lcount, lbuf);
 		fprintf (stderr, "Have already: %s\n", deplist.front().toString().c_str());
 		deplist.clear();
+                fclose(f);
 		return deplist;
 	    }
 
@@ -449,6 +450,7 @@ parseFile (const char *path, const char *expected)
 		&& strcmp (name, expected) != 0)
 	    {
 		fprintf (stderr, "Module file %s does not have expected name '%s' but '%s'\n", path, expected, name);
+                fclose(f);
 		return deplist;
 	    }
 	    have_module = true;
