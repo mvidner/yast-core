@@ -124,6 +124,7 @@ run_agent_instance (int argc, char* argv[], bool load_scr, SCRAgent* agent)
 		    agent->otherCommand (term->value (i)->asTerm ());
 		}
 	    }
+            free(cname);
 	}
     }
 
