@@ -114,6 +114,10 @@ YCPValue Y2ProgramComponent::evaluate(const YCPValue& command)
 	    // launch program
 	    launchExternalProgram(l_argv);
 
+	    if (argc < 1) free (l_argv[0]);
+	    free (l_argv[2]);
+	    delete[] l_argv;
+
 	    // I am myself a module in this context. Therefore the server
 	    // will send me my arguments. Since I initiated the session
 	    // myself, I am not interested in these arguments.
@@ -123,10 +127,6 @@ YCPValue Y2ProgramComponent::evaluate(const YCPValue& command)
 		y2error ("Couldn't launch external server %s", name().c_str ());
 		return YCPNull ();
 	    }
-
-	    if (argc < 1) free (l_argv[0]);
-	    free (l_argv[2]);
-	    delete[] l_argv;  // free l_argv
 	}
     }
 
