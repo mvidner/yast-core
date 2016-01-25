@@ -489,7 +489,7 @@ int IniParser::parse()
 {
     if (multiple_files)
     {
-	glob_t do_files;
+	glob_t do_files {0, NULL, 0};
 	int len = files.size ();
 	int flags = 0;
 	for (int i = 0;i<len;i++)
