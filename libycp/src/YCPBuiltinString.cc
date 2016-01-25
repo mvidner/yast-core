@@ -926,6 +926,7 @@ Reg_Ret solve_regular_expression (const char *input, const char *pattern,
     reg_ret.match_nb = 0;
     reg_ret.error = true;
     reg_ret.error_str = "";
+    reg_ret.solved = false;
 
     status = regcomp (&compiled, pattern, REG_EXTENDED);
     if (status)
