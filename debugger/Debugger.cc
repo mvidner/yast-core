@@ -138,6 +138,7 @@ bool Debugger::initializeRemote()
   sain.sin_family = PF_UNIX;
   sain.sin_addr.s_addr=htonl(INADDR_ANY);
   sain.sin_port=htons(PORT);
+  memset(&sain.sin_zero, 0, sizeof(sain.sin_zero));
 
   if (bind (m_socket,(struct sockaddr *) &sain, sizeof (sain)) < 0)
   {
