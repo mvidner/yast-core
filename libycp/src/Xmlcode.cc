@@ -183,6 +183,7 @@ Xmlcode::writeBytep( std::ostream & str, const unsigned char * bytep, unsigned i
     while( i < len ) {
 	str << to_hexc(( *bytep & 0xf0) >> 4 ) << to_hexc( *bytep & 0x0f );
 	bytep++;
+        i++;
     }
     return str << "</bytes>";
 }
