@@ -206,7 +206,6 @@ TableEntry::remove ()
     if (m_table)
     {
 	m_table->remove (this);
-	m_table = 0;
     }
 }
 
